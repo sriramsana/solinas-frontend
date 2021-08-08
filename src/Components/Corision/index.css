@@ -1,0 +1,19 @@
+.graph {
+  background-color: hsla(89, 43%, 51%, 0.3);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+* {
+  margin: none;
+}
+.glass-item {
+  align-self: center;
+  background-color: hsla(89, 43%, 51%, 0.3);
+  padding: 20px;
+}
+.line {
+  width: 930px;
+  height: 350px;
+}
