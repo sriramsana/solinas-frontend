@@ -7,43 +7,50 @@ import {
   YAxis,
   Legend,
 } from "recharts";
-import "./index.css";
-import { Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
+
+import { Link } from "react-router-dom";
+
 import { Component } from "react";
 
-class Corision extends Component {
-  state = { diameterData: "", isFetched: false };
+class All extends Component {
+  state = { allData: "", isFetched: false };
 
   componentDidMount() {
     this.getData();
   }
 
   getData = async () => {
-    const response = await fetch(
-      "https://solinas-backend.herokuapp.com/corision/"
-    );
+    const response = await fetch("https://solinas-backend.herokuapp.com/all/");
 
     const data = await response.json();
-    this.setState({ diameterData: data, isFetched: true });
+    this.setState({ allData: data, isFetched: true });
   };
 
   render() {
-    const { diameterData, isFetched } = this.state;
+    const { allData, isFetched } = this.state;
 
     return (
       <div className="graph">
-        <h1>Percentage of surface corrosion</h1>
+        <h1>All Graph Data</h1>
         {isFetched ? (
           <div className="glass-item">
-            <LineChart width={930} height={350} data={diameterData}>
+            <LineChart width={730} height={350} data={allData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="id" />
 
               <YAxis />
               <Tooltip />
               <Legend />
-              <Line dataKey="value" fill="red" size={2} />
+              <Line dataKey="diameterVal" fill="red" size={3} />
+              <Line dataKey="tempval" lineColor="red" fill="blue" size={2} />
+              <Line
+                dataKey="corisionVal"
+                lineColor="red"
+                fill="yellow"
+                size={2}
+              />
+              <Line dataKey="pressureValue" color="red" fill="white" size={2} />
             </LineChart>{" "}
           </div>
         ) : (
@@ -51,6 +58,7 @@ class Corision extends Component {
             <Loader type="Oval" color="green" height="50" />
           </div>
         )}
+
         <Link to="/">
           <button className="btn">back</button>
         </Link>
@@ -59,4 +67,4 @@ class Corision extends Component {
   }
 }
 
-export default Corision;
+export default All;
